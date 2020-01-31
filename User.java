@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.*;
 
 public class User
 {
@@ -8,9 +9,25 @@ public class User
     private String hometown;
     private String[] schools;
     private ArrayList<User> friendsList;
+    private String username;
+    private String password;
+    private ArrayList<Message> inbox;
+    Scanner scn = new Scanner(System.in);
     
     //CONSTRUCTOR - DONE FOR YOU
     //NOTE - it leaves the friendsList empty
+    public User(String n, int a, String h, String[] s, String pw, String u)
+    {
+        name = n;
+        age = a;
+        hometown = h;
+        schools = s;
+        friendsList = new ArrayList<User>(); 
+        username = u;
+        password = pw;
+        
+    }//END Constructor
+    
     public User(String n, int a, String h, String[] s)
     {
         name = n;
@@ -151,6 +168,38 @@ public class User
         }
         return null;
         
+    }
+    
+    public ArrayList<Message> getInbox() {
+        return inbox;
+    }
+    
+    
+    public void sendMessage(User other) {
+        System.out.print("Enter your message: ");
+        String message = scn.nextLine();
+        System.out.println();
+        System.out.print("Enter the name of the user you would like to send it to: ");
+        String u = scn.nextLine();
+        System.out.println();
+        User recipient = this;
+        boolean found = false;
+        for (int i = 0 ; i < friendsList.size() ; i++) {
+            if (friendsList.get(i).name.equals(u)) {
+                recipient = friendsList.get(i);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Either that user is not in your friends list, or they do not exist.");
+            return;
+        }
+        
+        
+        
+        Message ms = new Message(this, recipient, message);
+        ms.sendMessage();
     }
     
 }//END CLASS
