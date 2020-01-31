@@ -48,14 +48,19 @@ public class User
             }
         }
         
-        retStr += "\nFriends:\t|";
-        
-        for (int i = 0 ; i < friendsList.size() ; i++) {
-            retStr += friendsList.get(i).getName();
-            retStr += "|";
+        if (friendsList.size() > 0) {
+            retStr += "\nFriends:\t|";
+            
+            for (int i = 0 ; i < friendsList.size() ; i++) {
+                retStr += friendsList.get(i).getName();
+                retStr += "|";
+            }
+            
+            retStr += "\n";
         }
-        
-        retStr += "\n";
+        else {
+            retStr += "\nFriends:\tNo friends yet";
+        }
         
         return retStr;
     }//END toString
@@ -130,16 +135,21 @@ public class User
         ArrayList<User> maybe = new ArrayList<User>();
         for (User i : friendsList) {
             for (User j : i.friendsList) {
-                if (friendsList.indexOf(j) == -1 && j.hometown.equals(this.hometown)) {
+                if (friendsList.indexOf(j) == -1 && !j.equals(this) && j.hometown.equals(this.hometown)) {
                     good.add(j);
                 }
-                else if (friendsList.indexOf(j) == -1) {
+                else if (friendsList.indexOf(j) == -1 && !j.equals(this)) {
                     maybe.add(j);
                 }
             }
         }
         if (good.size() > 0) {
-            
+            return good.get((int) (Math.random() * good.size()));
+        }
+        else if (maybe.size() > 0) {
+            return maybe.get((int) (Math.random() * maybe.size()));
+        }
+        return null;
         
     }
     
