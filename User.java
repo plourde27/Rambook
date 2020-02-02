@@ -12,6 +12,9 @@ public class User
     private String username;
     private String password;
     private ArrayList<Message> inbox;
+    private String UserStatus;
+    private ArrayList<Post> posts;
+    private ArrayList<String> groups;//display groups on profiles?
     Scanner scn = new Scanner(System.in);
     
     //CONSTRUCTOR - DONE FOR YOU
@@ -172,6 +175,22 @@ public class User
     
     public ArrayList<Message> getInbox() {
         return inbox;
+    }
+    
+    public void setStatus(User p){
+        System.out.print("Enter status: ");
+        p.UserStatus = scn.nextLine();
+    }
+    
+    public void newPost(User u){
+        System.out.print("Enter the text for your post: ");
+        String posttext = scn.nextLine();
+        System.out.print("Public or private (please enter one of the options): ");
+        String pvstatus = scn.nextLine();
+        //ADD DATE CODE, REPL EXAMPLE
+        Post pt = new Post(u, posttext, pvstatus);
+        this.posts.add(pt);
+        
     }
     
     
