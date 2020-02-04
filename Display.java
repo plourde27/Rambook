@@ -8,6 +8,11 @@ public class Display extends JComponent{
     Mouse mouse;
     Keyboard kb;
     String accountString;
+    String[] enterFields = new String[8];
+    String[] fieldNames = {"Name:", "Username:", "Password:", "Age:", "Hometown:", "High School (optional):", "College (optional):", "Graduate School (optional):"};
+
+    int selInd = -1;
+    
     public Display(Game g, Mouse m, Keyboard k) {
         game = g;
         mouse = m;
@@ -51,22 +56,31 @@ public class Display extends JComponent{
             g.drawString("Create your Account:", 200, 200);
             g.drawString(accountString, 300, 300);
             //System.out.println(kb.pressed[65]);
-            for (int i = 48 ; i <= 122 ; i++) {
-                if (kb.pressed[i]) {
-                    if (i >= 65 && i <= 90) {
-                        accountString += (char) (i + 32);
-                    }
-                    else if (i >= 48 && i <= 57) {
-                        accountString += (char) (i);
+            if (selInd != -1) {
+                for (int i = 48 ; i <= 122 ; i++) {
+                    if (kb.pressed[i]) {
+                        if (i >= 65 && i <= 90) {
+                            enterFields[selInd] += (char) (i + 32);
+                        }
+                        else if (i >= 48 && i <= 57) {
+                            enterFields[selInd] += (char) (i);
+                        }
                     }
                 }
+                if (kb.pressed[32]) {
+                    enterFields[selInd] += " ";
+                }
+                if (kb.pressed[8] && accountString.length() > 0) {
+                    enterFields[selInd] = accountString.substring(0, accountString.length() - 1);
+                }
             }
-            if (kb.pressed[32]) {
-                accountString += " ";
+            
+            g.setColor(new Color(200, 200, 200));
+            for (int i = 0 ; i < enterFields.length ; i++) {
+                g.fillRect(300, 350 + i * 80, 300, 70);
             }
-            if (kb.pressed[8] && accountString.length() > 0) {
-                accountString = accountString.substring(0, accountString.length() - 1);
-            }
+            
+            
         }
         
         for (int i = 0 ; i < 200 ; i++) {
