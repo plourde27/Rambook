@@ -6,9 +6,12 @@ import java.lang.Math.*;
 public class Display extends JComponent{
     Game game;
     Mouse mouse;
-    public Display(Game g, Mouse m) {
+    Keyboard kb;
+    String accountString;
+    public Display(Game g, Mouse m, Keyboard k) {
         game = g;
         mouse = m;
+        kb = k;
     }
     
     public void draw(){
@@ -36,6 +39,7 @@ public class Display extends JComponent{
             
             if (mouse.clicked && mouse.x >= 100 && mouse.x <= 300 && mouse.y >= 630 && mouse.y <= 720) {
                 game.scene = "CreateAccount";
+                accountString = "";
             }
             System.out.println(mouse.x + " " + mouse.y);
         }
@@ -45,7 +49,28 @@ public class Display extends JComponent{
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Create your Account:", 200, 200);
+            g.drawString(accountString, 300, 300);
+            //System.out.println(kb.pressed[65]);
+            for (int i = 48 ; i <= 122 ; i++) {
+                if (kb.pressed[i]) {
+                    if (i >= 65 && i <= 90) {
+                        accountString += (char) (i + 32);
+                    }
+                    else if (i >= 48 && i <= 57) {
+                        accountString += (char) (i);
+                    }
+                }
+            }
+            if (kb.pressed[32]) {
+                accountString += " ";
+            }
+            if (kb.pressed[8] && accountString.length() > 0) {
+                accountString = accountString.substring(0, accountString.length() - 1);
+            }
         }
         
+        for (int i = 0 ; i < 200 ; i++) {
+            kb.pressed[i] = false;
+        }
     }
 }
