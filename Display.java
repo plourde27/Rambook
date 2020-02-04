@@ -20,7 +20,14 @@ public class Display extends JComponent{
         g.fillRect(0, 0, 1000, 1000);
         g.setColor(new Color(0, 0, 0));
         g.setFont(new Font("Avenir", Font.PLAIN, 65));
-        g.drawString("Rambook Project", 200, 200);
+        g.drawString("Welcome to Rambook!", 200, 200);
+        g.setColor(new Color(180, 180, 180));
+        g.fillRect(100, 600, 200, 90);
+        g.fillRect(700, 600, 200, 90);
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Avenir", Font.PLAIN, 20));
+        g.drawString("Log In", 140, 650);
+        g.drawString("Create an Account", 715, 650);
         
         
     }

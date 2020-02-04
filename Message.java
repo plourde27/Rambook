@@ -9,6 +9,6 @@ public class Message {
     }
     
     public void sendMessage() {
-        to.getInbox().add(this);
+        //to.getInbox().add(this);
     }
 }
