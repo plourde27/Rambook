@@ -1,6 +1,9 @@
 import java.util.*;
 import java.util.*;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 public class User
 {
     //INSTANCE FIELDS
@@ -16,7 +19,11 @@ public class User
     private ArrayList<Post> posts;
     private ArrayList<String> groups;//display groups on profiles?
     Scanner scn = new Scanner(System.in);
-    
+    //DATE AND TIME
+    /*static SimpleDateFormat etDf = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mma 'EST'");
+    static TimeZone etTimeZone = TimeZone.getTimeZone("America/New_York");
+    static etDf.setTimeZone(etTimeZone);
+    */
     //CONSTRUCTOR - DONE FOR YOU
     //NOTE - it leaves the friendsList empty
     public User(String n, int a, String h, String[] s, String pw, String u)
@@ -221,4 +228,12 @@ public class User
         ms.sendMessage();
     }
     
+    /*public String getDate(){
+        Date currentDate = new Date();
+        Calendar currentTime = Calendar.getInstance();
+         
+    
+        //In ET Time
+        return etDf.format(currentDate.getTime());
+    }*/
 }//END CLASS

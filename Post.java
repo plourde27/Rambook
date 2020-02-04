@@ -11,7 +11,6 @@ public class Post{
             privacy = false;
         else
             privacy = true;
-            
+    }
     }
         
-}
