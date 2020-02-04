@@ -70,14 +70,29 @@ public class Display extends JComponent{
                 if (kb.pressed[32]) {
                     enterFields[selInd] += " ";
                 }
-                if (kb.pressed[8] && accountString.length() > 0) {
-                    enterFields[selInd] = accountString.substring(0, accountString.length() - 1);
+                if (kb.pressed[8] && enterFields[selInd].length() > 0) {
+                    enterFields[selInd] = enterFields[selInd].substring(0, enterString[selInd].length() - 1);
                 }
             }
             
-            g.setColor(new Color(210, 210, 230));
+            g.setColor(new Color(240, 240, 240));
+            g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
             for (int i = 0 ; i < enterFields.length ; i++) {
-                g.fillRect(200, 330 + i * 65, 450, 50);
+                g.setColor(new Color(240, 240, 240));
+                g.fillRect(260, 290 + i * 65, 450, 50);
+                g.setColor(new Color(0, 0, 0));
+                if (enterFields[i] != null) {
+                    g.drawString(enterFields[i], 180, 330 + i * 65);
+                }
+                else {
+                    enterFields[i] = "";
+                }
+                if (selInd == i) {
+                    g.drawRect(260, 290 + i * 65, 450, 50);
+                }
+                if (mouse.clicked && mouse.x >= 260 && mouse.x <= 710 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                    selInd = i;
+                }
             }
             
             
