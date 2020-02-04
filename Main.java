@@ -11,10 +11,12 @@ public class Main
 
         JFrame frame = new JFrame("DISPLAY");
         Game game = new Game();
-        Display screen = new Display(game);
+        
+        
+        Mouse mouse = new Mouse();
+        frame.addMouseListener(mouse);
+        Display screen = new Display(game, mouse);
         frame.add(screen);
-        //Mouse mouse = new Mouse();
-        //frame.addMouseListener(mouse);
         //Keyboard keyboard = new Keyboard();
         //frame.addKeyListener(keyboard);
         frame.setBounds(0,0,1000,1000);
