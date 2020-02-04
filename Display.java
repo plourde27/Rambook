@@ -75,9 +75,9 @@ public class Display extends JComponent{
                 }
             }
             
-            g.setColor(new Color(200, 200, 200));
+            g.setColor(new Color(210, 210, 230));
             for (int i = 0 ; i < enterFields.length ; i++) {
-                g.fillRect(300, 350 + i * 80, 300, 70);
+                g.fillRect(200, 330 + i * 65, 450, 50);
             }
             
             
