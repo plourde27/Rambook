@@ -39,6 +39,7 @@ public class User
         password = pw;
         schedule = sch;
         posts = new ArrayList<Post>();
+        clubList = new ArrayList<SchoolClub>();
     }//END Constructor
     
     public User(String n, int a, String h, String[] s)
@@ -49,6 +50,7 @@ public class User
         schools = s;
         friendsList = new ArrayList<User>(); 
         posts = new ArrayList<Post>();
+        clubList = new ArrayList<SchoolClub>();
     }//END Constructor
     
     // DONE FOR YOU

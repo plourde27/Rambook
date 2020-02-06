@@ -27,7 +27,10 @@ public class Main
         new Thread(new frameRateUpdater(30,screen)).start();
         
         User x = new User("Joe", 18, "South Bend", new String[] {"SBHS", "Harvard"});
-        x.newPost(x);
-        System.out.println(x.getPosts().get(0));
+        //x.newPost(x);
+        //System.out.println(x.getPosts().get(0));
+        SchoolClub jousting = new SchoolClub("Jousting Club", "Jake", "James");
+        x.addClub(jousting);
+        System.out.println(x.getClubs());
   }
 }
