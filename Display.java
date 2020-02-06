@@ -37,7 +37,8 @@ public class Display extends JComponent{
         g.fillRect(x, y, w, h);
         g.setColor(new Color(0, 0, 0));
         g.drawString(txt, x + 20, (int) (y + (3 * h / 4.0)));
-        if (mouse.x >= x && mouse.x <= x + w && mouse.y >= y && mouse.y <= y + h) {
+        if (mouse.clicked && mouse.x >= x && mouse.x <= x + w && mouse.y >= y + 25 && mouse.y <= y + h + 25) {
+            mouse.clicked = false;
             return true;
         }
         return false;
@@ -45,6 +46,8 @@ public class Display extends JComponent{
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        
+        System.out.println(mouse.clicked);
         
         if (game.scene.equals("Login")) {
         
@@ -65,6 +68,7 @@ public class Display extends JComponent{
             //System.out.println(mouse.x + " " + mouse.y);
         }
         else if (game.scene.equals("CreateAccount")) {
+            
             g.setColor(new Color(255, 255, 255));
             g.fillRect(0, 0, 1000, 1000);
             g.setColor(new Color(0, 0, 0));
@@ -99,30 +103,24 @@ public class Display extends JComponent{
             g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
             for (int i = 0 ; i < enterFields.length ; i++) {
                 g.setColor(new Color(0, 0, 0));
-                g.drawString(fieldNames[i], 160, 325 + i * 65);
-                if (enterFields[i] != null) {
-                    g.drawString(enterFields[i], 420, 325 + i * 65);
-                }
-                else {
+                g.drawString(fieldNames[i], 120, 325 + i * 65);
+                if (enterFields[i] == null) {
                     enterFields[i] = "";
                 }
                 if (selInd == i) {
+                    g.setColor(new Color(0, 0, 0));
                     g.drawRect(410, 290 + i * 65, 450, 50);
                 }
                 if (button(g, 410, 290 + i * 65, 450, 50, new Color(240, 240, 240), enterFields[i])) {
+                    
                     selInd = i;
                 }
             }
             
-            g.setColor(new Color(180, 180, 180));
-            g.fillRect(400, 880, 200, 60);
-            g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 20));
-            g.drawString("Next", 470, 920);
             
-            if (mouse.clicked && mouse.x >= 400 && mouse.x <= 600 && mouse.y >= 880 && mouse.y <= 940) {
+            if (button(g, 400, 880, 200, 60, new Color(180, 180, 180), "Next")) {
                 game.scene = "CreateClasses";
-                
             }
             
         }
@@ -170,42 +168,32 @@ public class Display extends JComponent{
                 g.fillRect(160, 290 + i * 65, 300, 50);
                 g.setColor(new Color(0, 0, 0));
                 g.drawString(classPeriods[i], 90, 330 + i * 65);
-                if (names[i] != null) {
-                    g.drawString(names[i], 180, 330 + i * 65);
-                }
-                else {
+                if (names[i] == null) {
                     names[i] = "";
+                }
+                if (names[i + 8] == null) {
+                    names[i + 8] = "";
                 }
                 if (selInd == i) {
                     g.drawRect(160, 290 + i * 65, 300, 50);
                 }
-                if (mouse.clicked && mouse.x >= 160 && mouse.x <= 460 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                g.setColor(new Color(0, 0, 0));
+                if (button(g, 160, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i])) {
                     selInd = i;
                 }
                 g.setColor(new Color(240, 240, 240));
                 g.fillRect(630, 290 + i * 65, 300, 50);
                 g.setColor(new Color(0, 0, 0));
-                if (names[i + 8] != null) {
-                    g.drawString(names[i + 8], 650, 330 + i * 65);
-                }
-                else {
-                    names[i + 8] = "";
-                }
                 if (selInd == i + 8) {
                     g.drawRect(630, 290 + i * 65, 300, 50);
                 }
-                if (mouse.clicked && mouse.x >= 630 && mouse.x <= 930 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                if (button(g, 630, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i + 8])) {
                     selInd = i + 8;
                 }
             }
-            
-            g.setColor(new Color(180, 180, 180));
-            g.fillRect(400, 850, 200, 90);
-            g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 20));
-            g.drawString("Next", 470, 920);
             
-            if (mouse.clicked && mouse.x >= 400 && mouse.x <= 600 && mouse.y >= 850 && mouse.y <= 940) {
+            if (button(g, 400, 850, 200, 90, new Color(180, 180, 180), "Next")) {
                 SchoolClass[] classes = new SchoolClass[8];
                 for (int i = 0 ; i < 8 ; i++) {
                     classes[i] = new SchoolClass(names[i], i + 1, names[i + 8]);
