@@ -230,7 +230,7 @@ public class Display extends JComponent{
         }
         
         
-        setCursor(handCursor);
+        setCursor(arrowCursor);
         
         for (int i = 0 ; i < 200 ; i++) {
             kb.pressed[i] = false;
