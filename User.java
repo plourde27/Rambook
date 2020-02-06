@@ -241,9 +241,14 @@ public class User
         return etDf.format(currentDate.getTime());
     }
     
+    public void addClub(SchoolClub sc){
+        this.clubList.add(sc);
+    }
+    
     public ArrayList<SchoolClub> getClubs(){
         return this.clubList;
     }
+    
     public int getCommonClasses(Object other) {
         User oth = (User) other;
         return this.schedule.classesInCommon(oth.schedule);
