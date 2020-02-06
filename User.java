@@ -18,6 +18,7 @@ public class User
     private String UserStatus;
     private ArrayList<Post> posts;
     private ArrayList<String> groups;//display groups on profiles?
+    private Schedule schedule;
     Scanner scn = new Scanner(System.in);
     //DATE AND TIME
     static SimpleDateFormat etDf = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mma 'EST'");
@@ -26,7 +27,7 @@ public class User
     
     //CONSTRUCTOR - DONE FOR YOU
     //NOTE - it leaves the friendsList empty
-    public User(String n, int a, String h, String[] s, String pw, String u)
+    public User(String n, int a, String h, String[] s, String u, String pw, Schedule sch)
     {
         name = n;
         age = a;
@@ -35,6 +36,7 @@ public class User
         friendsList = new ArrayList<User>(); 
         username = u;
         password = pw;
+        schedule = sch;
         
     }//END Constructor
     
@@ -200,7 +202,6 @@ public class User
         
     }
     
-    
     public void sendMessage(User other) {
         System.out.print("Enter your message: ");
         String message = scn.nextLine();
@@ -235,5 +236,10 @@ public class User
     
         //In ET Time
         return etDf.format(currentDate.getTime());
+    }
+    
+    public int getCommonClasses(Object other) {
+        User oth = (User) other;
+        return this.schedule.classesInCommon(oth.schedule);
     }
 }//END CLASS
