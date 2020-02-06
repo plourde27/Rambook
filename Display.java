@@ -12,7 +12,11 @@ public class Display extends JComponent{
     String[] fieldNames = {"Name:", "Username:", "Password:", "Age:", "Hometown:", "High School (optional):", "College (optional):", "Graduate School (optional):"};
     String[] classPeriods = {"1AC", "2AC", "3/4/5AC", "6AC", "1BD", "2BD", "3/4/5BD", "6BD", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher"};
     String[] names =  new String[16];
+    Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
+    Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     int selInd = -1;
+    
+    User you;
     
     RamBook rb;
 
@@ -115,7 +119,6 @@ public class Display extends JComponent{
                 game.scene = "CreateClasses";
                 
             }
-            System.out.println(mouse.clicked + " " + mouse.pressed);
             
         }
         else if (game.scene.equals("CreateClasses")) {
@@ -209,18 +212,30 @@ public class Display extends JComponent{
                         scho[i - 5] = enterFields[i];
                     }
                 }
-                User you = new User(enterFields[0], Integer.parseInt(enterFields[3]), enterFields[4], scho, enterFields[1], enterFields[2], sd); 
+                you = new User(enterFields[0], Integer.parseInt(enterFields[3]), enterFields[4], scho, enterFields[1], enterFields[2], sd); 
                 rb.addUser(you);
                 rb.printAllUsers();
-                game.scene = "HSome";
+                game.scene = "Home";
             }
-            
-            
         }
+        else if (game.scene.equals("Home")) {
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(0, 0, 1000, 1000);
+            g.setColor(new Color(0, 0, 0));
+            g.setFont(new Font("Avenir", Font.PLAIN, 65));
+            g.drawString("Welcome, " + you.getName(), 200, 200);
+        }
+        else if (game.scene.equals("ViewOtherUser")) {
+            Color[] classColors = {new Color(0, 0, 0), new Color(255, 0, 0), new Color(200, 50, 0), new Color(180, 180, 0), new Color(100, 200, 0), new Color(0, 255, 0), new Color(0, 125, 255), new Color(0, 55, 255), new Color(0, 200, 200)};
+        }
+        
+        
+        setCursor(handCursor);
         
         for (int i = 0 ; i < 200 ; i++) {
             kb.pressed[i] = false;
         }
         mouse.clicked = false;
+        
     }
 }
