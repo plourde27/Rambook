@@ -26,6 +26,8 @@ public class Main
         new Thread(game).start();
         new Thread(new frameRateUpdater(30,screen)).start();
         
-        
+        User x = new User("Joe", 18, "South Bend", new String[] {"SBHS", "Harvard"});
+        x.newPost(x);
+        System.out.println(x.getPosts().get(0));
   }
 }

@@ -3,7 +3,7 @@ public class Post{
     private String text;
     private String date;
     private boolean privacy;
-    
+    private String pstring;
     public Post(User p, String t, String pv, String d){
         poster = p;
         text = t;
@@ -12,7 +12,11 @@ public class Post{
         else
             privacy = true;
         date = d;    
-        
+        pstring = pv;
+    }
+    
+    public String toString(){
+        return  pstring + " post: \"" + text + "\"\n\n\t" + date;
     }
     }
         

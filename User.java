@@ -37,7 +37,7 @@ public class User
         username = u;
         password = pw;
         schedule = sch;
-        
+        posts = new ArrayList<Post>();
     }//END Constructor
     
     public User(String n, int a, String h, String[] s)
@@ -47,7 +47,7 @@ public class User
         hometown = h;
         schools = s;
         friendsList = new ArrayList<User>(); 
-        
+        posts = new ArrayList<Post>();
     }//END Constructor
     
     // DONE FOR YOU
@@ -202,6 +202,9 @@ public class User
         
     }
     
+    public ArrayList<Post> getPosts(){
+        return this.posts;
+    }
     public void sendMessage(User other) {
         System.out.print("Enter your message: ");
         String message = scn.nextLine();
