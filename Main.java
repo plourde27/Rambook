@@ -18,7 +18,7 @@ public class Main
         frame.addKeyListener(keyboard);
         Display screen = new Display(game, mouse, keyboard);
         frame.add(screen);
-        ;
+        
         frame.setBounds(0,0,1000,1000);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
