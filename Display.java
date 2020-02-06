@@ -10,13 +10,18 @@ public class Display extends JComponent{
     String accountString;
     String[] enterFields = new String[8];
     String[] fieldNames = {"Name:", "Username:", "Password:", "Age:", "Hometown:", "High School (optional):", "College (optional):", "Graduate School (optional):"};
-
+    String[] classPeriods = {"1AC", "2AC", "3/4/5AC", "6AC", "1BD", "2BD", "3/4/5BD", "6BD", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher"};
+    String[] names =  new String[16];
     int selInd = -1;
+    
+    RamBook rb;
+
     
     public Display(Game g, Mouse m, Keyboard k) {
         game = g;
         mouse = m;
         kb = k;
+        rb = new RamBook();
     }
     
     public void draw(){
@@ -114,9 +119,8 @@ public class Display extends JComponent{
             
         }
         else if (game.scene.equals("CreateClasses")) {
-            String[] classPeriods = {"1AC", "2AC", "3/4/5AC", "6AC", "1BD", "2BD", "3/4/5BD", "6BD"};
-            String[] names = {"","","","","","","",""};
-            String[] teachers = {"","","","","","","",""};
+            
+            //String[] teachers = {"","","","","","","",""};
             g.setColor(new Color(255, 255, 255));
             g.fillRect(0, 0, 1000, 1000);
             g.setColor(new Color(0, 0, 0));
@@ -128,6 +132,7 @@ public class Display extends JComponent{
                     if (kb.pressed[i]) {
                         if (i >= 65 && i <= 90) {
                             if (kb.keys[16]) {
+                                System.out.println(names[selInd]);
                                 names[selInd] += (char) (i);
                             }
                             else {
@@ -149,17 +154,40 @@ public class Display extends JComponent{
             
             g.setColor(new Color(240, 240, 240));
             g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
+            g.setColor(new Color(0, 0, 0));
+            g.drawString("Class Name", 280, 270);
+            g.drawString("Teacher", 750, 270);
             for (int i = 0 ; i < enterFields.length ; i++) {
                 g.setColor(new Color(240, 240, 240));
-                g.fillRect(210, 290 + i * 65, 300, 50);
+                g.fillRect(160, 290 + i * 65, 300, 50);
                 g.setColor(new Color(0, 0, 0));
-                g.drawString(classPeriods[i], 130, 330 + i * 65);
-                g.drawString(names[i], 420, 330 + i * 65);
-                if (selInd == i) {
-                    g.drawRect(410, 290 + i * 65, 450, 50);
+                g.drawString(classPeriods[i], 90, 330 + i * 65);
+                if (names[i] != null) {
+                    g.drawString(names[i], 180, 330 + i * 65);
                 }
-                if (mouse.clicked && mouse.x >= 210 && mouse.x <= 510 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                else {
+                    names[i] = "";
+                }
+                if (selInd == i) {
+                    g.drawRect(160, 290 + i * 65, 300, 50);
+                }
+                if (mouse.clicked && mouse.x >= 160 && mouse.x <= 460 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
                     selInd = i;
+                }
+                g.setColor(new Color(240, 240, 240));
+                g.fillRect(630, 290 + i * 65, 300, 50);
+                g.setColor(new Color(0, 0, 0));
+                if (names[i + 8] != null) {
+                    g.drawString(names[i + 8], 650, 330 + i * 65);
+                }
+                else {
+                    names[i + 8] = "";
+                }
+                if (selInd == i + 8) {
+                    g.drawRect(630, 290 + i * 65, 300, 50);
+                }
+                if (mouse.clicked && mouse.x >= 630 && mouse.x <= 930 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                    selInd = i + 8;
                 }
             }
             
@@ -170,8 +198,21 @@ public class Display extends JComponent{
             g.drawString("Next", 470, 920);
             
             if (mouse.clicked && mouse.x >= 400 && mouse.x <= 600 && mouse.y >= 850 && mouse.y <= 940) {
-                game.scene = "CreateClasses";
-                accountString = "";
+                SchoolClass[] classes = new SchoolClass[8];
+                for (int i = 0 ; i < 8 ; i++) {
+                    classes[i] = new SchoolClass(names[i], i + 1, names[i + 8]);
+                }
+                Schedule sd = new Schedule(classes, enterFields[0]);
+                String[] scho = new String[3];
+                for (int i = 5 ; i <= 7 ; i++) {
+                    if (enterFields[i].length() > 0) {
+                        scho[i - 5] = enterFields[i];
+                    }
+                }
+                User you = new User(enterFields[0], Integer.parseInt(enterFields[3]), enterFields[4], scho, enterFields[1], enterFields[2], sd); 
+                rb.addUser(you);
+                rb.printAllUsers();
+                game.scene = "Home";
             }
             
             
