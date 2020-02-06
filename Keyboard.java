@@ -8,7 +8,6 @@ public class Keyboard extends KeyAdapter{
         pressed = new boolean[200];
     }
     public void keyPressed(KeyEvent e){
-        System.out.println(lastPressed);
         int key = e.getKeyCode();
         keys[key] = true;
         pressed[key] = true;
