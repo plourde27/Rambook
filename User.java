@@ -17,8 +17,9 @@ public class User
     private ArrayList<Message> inbox;
     private String UserStatus;
     private ArrayList<Post> posts;
-    private ArrayList<String> groups;//display groups on profiles?
+    //private ArrayList<String> groups;//same as clubs
     private Schedule schedule;
+    private ArrayList<SchoolClub> clubList;
     Scanner scn = new Scanner(System.in);
     //DATE AND TIME
     static SimpleDateFormat etDf = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mma 'EST'");
@@ -240,6 +241,9 @@ public class User
         return etDf.format(currentDate.getTime());
     }
     
+    public ArrayList<SchoolClub> getClubs(){
+        return this.clubList;
+    }
     public int getCommonClasses(Object other) {
         User oth = (User) other;
         return this.schedule.classesInCommon(oth.schedule);

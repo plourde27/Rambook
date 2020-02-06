@@ -12,7 +12,7 @@ public class RamBook
         allUsers = new ArrayList<User>();
         
          //Add Users (Info only, no friends in friendsList yet)
-        allUsers.add(new User("Grace", 20, "Syracuse", new String[]{"JDHS", "SU", null}));
+        /*allUsers.add(new User("Grace", 20, "Syracuse", new String[]{"JDHS", "SU", null}));
         allUsers.add(new User("Bohdin", 21, "Los Angeles", new String[]{"Beverly Hills High", "UCLA", "USC"}));
         allUsers.add(new User("Shamus", 30, "DeWitt", new String[]{"JDHS", "Rutgers", null}));
         allUsers.add(new User("Jessica", 43, "Cleveland", new String[]{null, null, null}));
@@ -28,7 +28,7 @@ public class RamBook
         allUsers.add(new User("Stefan", 21, "Los Angeles", new String[]{"Beverly Hills High", "UCLA", "USC"}));
         allUsers.add(new User("Sarah", 30, "DeWitt", new String[]{"F-P", null, null}));
         allUsers.add(new User("LangBot", 44, "Syracuse", new String[]{"Marcellus HS", "Bucknell U", "Binghamton U"}));
-        
+        */
         
         //Randomly Generate Friends
         for (int x=0; x < allUsers.size(); x++)
@@ -64,7 +64,20 @@ public class RamBook
         }
     }//END printUsers
         
+    public ArrayList<User> getClubMembers(SchoolClub sc){
+        ArrayList<User> total = new ArrayList<User>();
+        for (User u : allUsers) {
+            for (SchoolClub s : u.getClubs()){
+                if (s.equals(sc)){
+                    total.add(u);
+                }
+            }
+        }
+        return total;
+    }
     
-    
+    public void addUser(User u){
+        allUsers.add(u);
+    }
     
 }//END CLASS
