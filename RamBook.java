@@ -4,7 +4,7 @@ public class RamBook
 {
     //INSTANCE FIELD
     private ArrayList<User> allUsers;
-
+    private ArrayList<SchoolClub> allClubs;
 
     //CONSTRUCTOR
     public RamBook()
@@ -63,7 +63,12 @@ public class RamBook
            
         }
     }//END printUsers
-        
+    
+    //add club to list of all clubs????
+    public void createClub(SchoolClub sc){
+        allClubs.add(sc);
+    }
+    
     public ArrayList<User> getClubMembers(SchoolClub sc){
         ArrayList<User> total = new ArrayList<User>();
         for (User u : allUsers) {
