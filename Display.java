@@ -32,8 +32,18 @@ public class Display extends JComponent{
         super.repaint();
     }
     
+    public boolean button(Graphics g, int x, int y, int w, int h, Color c, String txt) {
+        g.setColor(c);
+        g.fillRect(x, y, w, h);
+        g.setColor(new Color(0, 0, 0));
+        g.drawString(txt, x + 20, (int) (y + (3 * h / 4.0)));
+        if (mouse.x >= x && mouse.x <= x + w && mouse.y >= y && mouse.y <= y + h) {
+            return true;
+        }
+        return false;
+    }
+    
     public void paintComponent(Graphics g){
-        
         super.paintComponent(g);
         
         if (game.scene.equals("Login")) {
@@ -43,15 +53,12 @@ public class Display extends JComponent{
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Welcome to Rambook!", 200, 200);
-            g.setColor(new Color(180, 180, 180));
-            g.fillRect(100, 600, 200, 90);
-            g.fillRect(700, 600, 200, 90);
-            g.setColor(new Color(0, 0, 0));
-            g.setFont(new Font("Avenir", Font.PLAIN, 20));
-            g.drawString("Log In", 140, 650);
-            g.drawString("Create an Account", 715, 650);
-            
-            if (mouse.clicked && mouse.x >= 100 && mouse.x <= 300 && mouse.y >= 630 && mouse.y <= 720) {
+            g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
+            if (button(g, 100, 600, 200, 90, new Color(180, 180, 180), "Create Account")) {
+                game.scene = "CreateAccount";
+                accountString = "";
+            }
+            if (button(g, 700, 600, 200, 90, new Color(180, 180, 180), "Log In")) {
                 game.scene = "CreateAccount";
                 accountString = "";
             }
@@ -91,8 +98,6 @@ public class Display extends JComponent{
             g.setColor(new Color(240, 240, 240));
             g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
             for (int i = 0 ; i < enterFields.length ; i++) {
-                g.setColor(new Color(240, 240, 240));
-                g.fillRect(410, 290 + i * 65, 450, 50);
                 g.setColor(new Color(0, 0, 0));
                 g.drawString(fieldNames[i], 160, 325 + i * 65);
                 if (enterFields[i] != null) {
@@ -104,7 +109,7 @@ public class Display extends JComponent{
                 if (selInd == i) {
                     g.drawRect(410, 290 + i * 65, 450, 50);
                 }
-                if (mouse.clicked && mouse.x >= 260 && mouse.x <= 710 && mouse.y >= 320 + i * 65 && mouse.y <= 370 + i * 65) {
+                if (button(g, 410, 290 + i * 65, 450, 50, new Color(240, 240, 240), enterFields[i])) {
                     selInd = i;
                 }
             }
