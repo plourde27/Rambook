@@ -113,9 +113,9 @@ public class Display extends JComponent{
             
             if (mouse.clicked && mouse.x >= 400 && mouse.x <= 600 && mouse.y >= 880 && mouse.y <= 940) {
                 game.scene = "CreateClasses";
-                accountString = "";
+                
             }
-            
+            System.out.println(mouse.clicked + " " + mouse.pressed);
             
         }
         else if (game.scene.equals("CreateClasses")) {
@@ -212,7 +212,7 @@ public class Display extends JComponent{
                 User you = new User(enterFields[0], Integer.parseInt(enterFields[3]), enterFields[4], scho, enterFields[1], enterFields[2], sd); 
                 rb.addUser(you);
                 rb.printAllUsers();
-                game.scene = "Home";
+                game.scene = "HSome";
             }
             
             
@@ -221,5 +221,6 @@ public class Display extends JComponent{
         for (int i = 0 ; i < 200 ; i++) {
             kb.pressed[i] = false;
         }
+        mouse.clicked = false;
     }
 }

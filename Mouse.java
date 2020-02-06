@@ -1,18 +1,28 @@
 import java.awt.event.*;
 public class Mouse implements MouseListener{
     boolean clicked;
+    boolean pressed;
     int x, y;
     public Mouse(){
         clicked = false;
+        pressed = false;
     }
     
     public void mousePressed(MouseEvent e){
         x = e.getX();
         y = e.getY();
-        clicked = true;
+        /*if (!pressed) {
+            clicked = true;
+            pressed = true;
+        }
+        else {
+            clicked = false;
+            pressed = true;
+        }*/
     }
     public void mouseReleased(MouseEvent e){
-        clicked = false;
+        //clicked = false;
+        //pressed = false;
     }
     public void mouseEntered(MouseEvent e) {
 
@@ -21,6 +31,6 @@ public class Mouse implements MouseListener{
 
     }
     public void mouseClicked(MouseEvent e) {
-
+        clicked = true;
     }
 }
