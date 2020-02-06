@@ -1,14 +1,19 @@
+import java.util.*;
+
 public class SchoolClub
 {
     private String advisor;
     private String president;
     private String name;
     
+    
     public SchoolClub(String nm, String ad, String pres)
     {
         advisor = ad;
         president = pres;
         name = nm;
+        
+        
     }
     
     public String getAdvisor() {
