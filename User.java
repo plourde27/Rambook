@@ -196,8 +196,8 @@ public class User
         String posttext = scn.nextLine();
         System.out.print("Public or private (please enter one of the options): ");
         String pvstatus = scn.nextLine();
-        //ADD DATE CODE, REPL EXAMPLE
-        Post pt = new Post(u, posttext, pvstatus);
+        String dato = this.getDate();
+        Post pt = new Post(u, posttext, pvstatus, dato);
         this.posts.add(pt);
         
     }
@@ -233,7 +233,6 @@ public class User
         Date currentDate = new Date();
         Calendar currentTime = Calendar.getInstance();
          
-    
         //In ET Time
         return etDf.format(currentDate.getTime());
     }
