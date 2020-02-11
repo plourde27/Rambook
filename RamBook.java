@@ -3,8 +3,8 @@ import java.util.*;
 public class RamBook
 {
     //INSTANCE FIELD
-    private ArrayList<User> allUsers;
-    private ArrayList<SchoolClub> allClubs;
+    public ArrayList<User> allUsers;
+    public ArrayList<SchoolClub> allClubs;
 
     //CONSTRUCTOR
     public RamBook()

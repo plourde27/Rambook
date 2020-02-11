@@ -14,18 +14,24 @@ public class Display extends JComponent{
     String[] names =  new String[16];
     Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
     Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    int usersel = 0;
     int selInd = -1;
     
     User you;
     
     RamBook rb;
+    
+    Frame frm;
+    
+    
 
     
-    public Display(Game g, Mouse m, Keyboard k) {
+    public Display(Game g, Mouse m, Keyboard k, Frame f) {
         game = g;
         mouse = m;
         kb = k;
         rb = new RamBook();
+        frm = f;
     }
     
     public void draw(){
@@ -37,9 +43,12 @@ public class Display extends JComponent{
         g.fillRect(x, y, w, h);
         g.setColor(new Color(0, 0, 0));
         g.drawString(txt, x + 20, (int) (y + (3 * h / 4.0)));
-        if (mouse.clicked && mouse.x >= x && mouse.x <= x + w && mouse.y >= y + 25 && mouse.y <= y + h + 25) {
-            mouse.clicked = false;
-            return true;
+        if (mouse.x >= x && mouse.x <= x + w && mouse.y >= y + 25 && mouse.y <= y + h + 25) {
+            frm.setCursor(handCursor);
+            if (mouse.clicked) {
+                mouse.clicked = false;
+                return true;
+            }
         }
         return false;
     }
@@ -107,13 +116,14 @@ public class Display extends JComponent{
                 if (enterFields[i] == null) {
                     enterFields[i] = "";
                 }
-                if (selInd == i) {
-                    g.setColor(new Color(0, 0, 0));
-                    g.drawRect(410, 290 + i * 65, 450, 50);
-                }
+                
                 if (button(g, 410, 290 + i * 65, 450, 50, new Color(240, 240, 240), enterFields[i])) {
                     
                     selInd = i;
+                }
+                if (selInd == i) {
+                    g.setColor(new Color(0, 0, 0));
+                    g.drawRect(410, 290 + i * 65, 450, 50);
                 }
             }
             
@@ -174,9 +184,7 @@ public class Display extends JComponent{
                 if (names[i + 8] == null) {
                     names[i + 8] = "";
                 }
-                if (selInd == i) {
-                    g.drawRect(160, 290 + i * 65, 300, 50);
-                }
+                
                 g.setColor(new Color(0, 0, 0));
                 if (button(g, 160, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i])) {
                     selInd = i;
@@ -184,16 +192,20 @@ public class Display extends JComponent{
                 g.setColor(new Color(240, 240, 240));
                 g.fillRect(630, 290 + i * 65, 300, 50);
                 g.setColor(new Color(0, 0, 0));
-                if (selInd == i + 8) {
-                    g.drawRect(630, 290 + i * 65, 300, 50);
-                }
+                
                 if (button(g, 630, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i + 8])) {
                     selInd = i + 8;
+                }
+                if (selInd == i) {
+                    g.drawRect(160, 290 + i * 65, 300, 50);
+                }
+                if (selInd == i + 8) {
+                    g.drawRect(630, 290 + i * 65, 300, 50);
                 }
             }
             g.setFont(new Font("Avenir", Font.PLAIN, 20));
             
-            if (button(g, 400, 850, 200, 90, new Color(180, 180, 180), "Next")) {
+            if (button(g, 400, 850, 200, 70, new Color(180, 180, 180), "Next")) {
                 SchoolClass[] classes = new SchoolClass[8];
                 for (int i = 0 ; i < 8 ; i++) {
                     classes[i] = new SchoolClass(names[i], i + 1, names[i + 8]);
@@ -209,17 +221,47 @@ public class Display extends JComponent{
                 rb.addUser(you);
                 rb.printAllUsers();
                 game.scene = "Home";
+                System.out.println(game.scene);
             }
         }
-        else if (game.scene.equals("Home")) {
+        else if (game.scene.equals("Home") || game.scene.equals("Friends") || game.scene.equals("All Users") || game.scene.equals("Inbox") || game.scene.equals("Log Out")) {
             g.setColor(new Color(255, 255, 255));
             g.fillRect(0, 0, 1000, 1000);
+            
+            String[] buttonops = {"Home", "Friends", "All Users", "Inbox", "Log Out"};
+            g.setFont(new Font("Avenir", Font.PLAIN, 22));
+            for (int i = 0 ; i < buttonops.length ; i++) {
+                if (game.scene.equals(buttonops[i])) {
+                    if (button(g, 50 + i * 180, 300, 170, 80, new Color(180, 180, 180), buttonops[i])) {
+                        game.scene = buttonops[i];
+                    }
+                }
+                else {
+                    if (button(g, 50 + i * 180, 300, 170, 80, new Color(210, 210, 210), buttonops[i])) {
+                        game.scene = buttonops[i];
+                    }
+                }
+            }
+        }
+        if (game.scene.equals("Home")) {
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Welcome, " + you.getName(), 200, 200);
         }
+        else if (game.scene.equals("All Users")) {
+            g.setColor(new Color(0, 0, 0));
+            g.setFont(new Font("Avenir", Font.PLAIN, 65));
+            g.drawString("View Other Users", 200, 200);
+            for (int i = usersel ; i < Math.min(usersel + 6, rb.allUsers.size()) ; i++) {
+                g.fillRect(50, 400 + (i - usersel) * 90, 900, 80);
+            }
+        }
         else if (game.scene.equals("ViewOtherUser")) {
             Color[] classColors = {new Color(0, 0, 0), new Color(255, 0, 0), new Color(200, 50, 0), new Color(180, 180, 0), new Color(100, 200, 0), new Color(0, 255, 0), new Color(0, 125, 255), new Color(0, 55, 255), new Color(0, 200, 200)};
+            
+        }
+        else if (game.scene.equals("All Users")) {
+            rb.printAllUsers();
         }
         
         
