@@ -1,0 +1,8 @@
+USER INFO GOES HERE:
+Name: Xavier
+Age: 16
+Hometown: Syracuse
+Schools: |JDHS|
+Classes: POE,Band,Calculus,Gym,AP Computer Science,AP US History,AP English 11,Chemistry Honors
+Teachers: Stroh,Blumenthal,Techman,Rowles,Lang,Bunyan,Romeiser,Boettger
+Friends: 
