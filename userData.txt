@@ -1,5 +1,7 @@
 USER INFO GOES HERE:
 Name: Xavier
+Username: plourde27
+Password: HelloWorld
 Age: 16
 Hometown: Syracuse
 Schools: |JDHS|
