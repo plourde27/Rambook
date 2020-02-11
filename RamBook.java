@@ -1,15 +1,52 @@
 import java.util.*;
+import java.io.*;
 
 public class RamBook
 {
     //INSTANCE FIELD
     public ArrayList<User> allUsers;
     public ArrayList<SchoolClub> allClubs;
+    
+    static final File userFile = new File("userData.txt");
 
     //CONSTRUCTOR
     public RamBook()
     {
         allUsers = new ArrayList<User>();
+        BufferedReader fl;
+        try {
+            fl = new BufferedReader(new FileReader(userFile));
+            String ln = fl.readLine();
+            while (ln.length() > 1) {
+                
+                ln = fl.readLine();
+                String name = ln.substring(ln.indexOf(" ") + 1);
+                ln = fl.readLine();
+                String username = ln.substring(ln.indexOf(" ") + 1);
+                ln = fl.readLine();
+                String password = ln.substring(ln.indexOf(" ") + 1);
+                ln = fl.readLine();
+                int age = Integer.parseInt(ln.substring(ln.indexOf(" ") + 1));
+                ln = fl.readLine();
+                String hometown = ln.substring(ln.indexOf(" ") + 1);
+                ln = fl.readLine();
+                String[] schools = ln.substring(ln.indexOf(" ") + 1).split(",");
+                ln = fl.readLine();
+                String[] classNames = ln.substring(ln.indexOf(" ") + 1).split(",");
+                ln = fl.readLine();
+                String[] teacherNames = ln.substring(ln.indexOf(" ") + 1).split(",");
+                ln = fl.readLine();
+                String[] friendNames = ln.substring(ln.indexOf(" ") + 1).split("|");
+                SchoolClass[] classes = new SchoolClass[8];
+                for (int i = 0 ; i < 8 ; i++) {
+                    classes[i] = new SchoolClass(classNames[i], i + 1, teacherNames[i]);
+                }
+                Schedule scl = new Schedule(classes, name);
+                allUsers.add(new User(name, age, hometown, schools, username, password, scl));
+            }
+        }
+        catch (Exception e) {
+        }
         
          //Add Users (Info only, no friends in friendsList yet)
         /*allUsers.add(new User("Grace", 20, "Syracuse", new String[]{"JDHS", "SU", null}));

@@ -56,8 +56,6 @@ public class Display extends JComponent{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
-        System.out.println(mouse.clicked);
-        
         if (game.scene.equals("Login")) {
         
             g.setColor(new Color(255, 255, 255));
@@ -148,7 +146,6 @@ public class Display extends JComponent{
                     if (kb.pressed[i]) {
                         if (i >= 65 && i <= 90) {
                             if (kb.keys[16]) {
-                                System.out.println(names[selInd]);
                                 names[selInd] += (char) (i);
                             }
                             else {
@@ -221,7 +218,6 @@ public class Display extends JComponent{
                 rb.addUser(you);
                 rb.printAllUsers();
                 game.scene = "Home";
-                System.out.println(game.scene);
             }
         }
         else if (game.scene.equals("Home") || game.scene.equals("Friends") || game.scene.equals("All Users") || game.scene.equals("Inbox") || game.scene.equals("Log Out")) {
