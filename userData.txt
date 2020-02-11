@@ -4,7 +4,7 @@ Username: plourde27
 Password: HelloWorld
 Age: 16
 Hometown: Syracuse
-Schools: |JDHS|
+Schools: JDHS,TestCollege
 Classes: POE,Band,Calculus,Gym,AP Computer Science,AP US History,AP English 11,Chemistry Honors
 Teachers: Stroh,Blumenthal,Techman,Rowles,Lang,Bunyan,Romeiser,Boettger
 Friends: 
