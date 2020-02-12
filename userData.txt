@@ -8,3 +8,12 @@ Schools: JDHS,TestCollege
 Classes: POE,Band,Calculus,Gym,AP Computer Science,AP US History,AP English 11,Chemistry Honors
 Teachers: Stroh,Blumenthal,Techman,Rowles,Lang,Bunyan,Romeiser,Boettger
 Friends: 
+Name: TestUser
+Username: thetestuser
+Password: 123
+Age: 11011816
+Hometown: Rambook City
+Schools: TestHS,TestU
+Classes: POE,Band,Calculus,blah,blah,blah,blah,blah
+Teachers: Stroh,Blumenthal,Techman,test,test,test,test,test
+Friends: 
