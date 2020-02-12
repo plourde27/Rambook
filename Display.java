@@ -261,7 +261,7 @@ public class Display extends JComponent{
                     break;
                 }
                 if (button(g, 50, 400 + (i - usersel) * 90, 900, 80, new Color(230, 230, 230), "")) {
-                    game.scene = "ViewOtherUsers";
+                    game.scene = "ViewOtherUser";
                     ttu = tu;
                 }
                 g.setColor(new Color(0, 0, 0));
@@ -277,10 +277,22 @@ public class Display extends JComponent{
 
             }
         }
-        else if (game.scene.equals("View Other Users")) {
+        else if (game.scene.equals("ViewOtherUser")) {
             Color[] classColors = {new Color(0, 0, 0), new Color(255, 0, 0), new Color(200, 50, 0), new Color(180, 180, 0), new Color(100, 200, 0), new Color(0, 255, 0), new Color(0, 125, 255), new Color(0, 55, 255), new Color(0, 200, 200)};
-            g.setColor(classColors[you.classesInCommon(ttu)]);
-            g.fillRect(0, 0, 1000, 1000);
+            int cc = you.classesInCommon(ttu);
+            g.setColor(classColors[cc]);
+            System.out.println(you.classesInCommon(ttu));
+            g.fillOval(50, 120, 120, 120);
+            g.fillRect(100, 230, 20, 1000);
+            g.fillRect(160, 170, 1000, 20);
+            g.setColor(new Color(0, 0, 0));
+            g.setFont(new Font("Avenir", Font.PLAIN, 85));
+            g.drawString(ttu.getName(), 250, 70);
+            g.setFont(new Font("Avenir", Font.PLAIN, 32));
+            g.drawString(Integer.toString(cc) + " classes in common", 270, 240);
+            g.setColor(new Color(255, 255, 255));
+            g.setFont(new Font("Avenir",Font.PLAIN, 170));
+            g.drawString(Integer.toString(cc), 50, 120);
         }
         else if (game.scene.equals("All Users")) {
             rb.printAllUsers();
