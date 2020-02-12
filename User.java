@@ -40,6 +40,7 @@ public class User
         schedule = sch;
         posts = new ArrayList<Post>();
         clubList = new ArrayList<SchoolClub>();
+        inbox = new ArrayList<Message>();
     }//END Constructor
     
     public User(String n, int a, String h, String[] s)
@@ -51,6 +52,7 @@ public class User
         friendsList = new ArrayList<User>(); 
         posts = new ArrayList<Post>();
         clubList = new ArrayList<SchoolClub>();
+        inbox = new ArrayList<Message>();
     }//END Constructor
     
     // DONE FOR YOU
@@ -225,6 +227,7 @@ public class User
     public ArrayList<Post> getPosts(){
         return this.posts;
     }
+    
     public void sendMessage(User other) {
         System.out.print("Enter your message: ");
         String message = scn.nextLine();
