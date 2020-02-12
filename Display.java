@@ -16,6 +16,7 @@ public class Display extends JComponent{
     Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     int usersel = 0;
     int selInd = -1;
+    User ttu;
     
     User you;
     
@@ -248,13 +249,38 @@ public class Display extends JComponent{
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("View Other Users", 200, 200);
-            for (int i = usersel ; i < Math.min(usersel + 6, rb.allUsers.size()) ; i++) {
-                g.fillRect(50, 400 + (i - usersel) * 90, 900, 80);
+            
+            int i = usersel;
+            int t = 0;
+            while (i < rb.allUsers.size() && t < 6) {
+                g.setColor(new Color(230, 230, 230));
+                User tu = rb.allUsers.get(i);
+                if (tu.equals(you)) {
+                    i++;
+                    t++;
+                    break;
+                }
+                if (button(g, 50, 400 + (i - usersel) * 90, 900, 80, new Color(230, 230, 230), "")) {
+                    game.scene = "ViewOtherUsers";
+                    ttu = tu;
+                }
+                g.setColor(new Color(0, 0, 0));
+                g.setFont(new Font("Avenir", Font.PLAIN, 30));
+                g.drawString(tu.getName(), 200, 435 + (i - usersel) * 90);
+                g.setFont(new Font("Avenir", Font.PLAIN, 21));
+                g.drawString("Hometown: " + tu.getHometown(), 200, 470 + (i - usersel) * 90);
+                g.drawString("Schools: " + tu.getSchools(), 460, 435 + (i - usersel) * 90);
+                //g.drawString(", 460, 470 + (i - usersel) * 90);
+                i++;
+                t++;
+                
+
             }
         }
-        else if (game.scene.equals("ViewOtherUser")) {
+        else if (game.scene.equals("View Other Users")) {
             Color[] classColors = {new Color(0, 0, 0), new Color(255, 0, 0), new Color(200, 50, 0), new Color(180, 180, 0), new Color(100, 200, 0), new Color(0, 255, 0), new Color(0, 125, 255), new Color(0, 55, 255), new Color(0, 200, 200)};
-            
+            g.setColor(classColors[you.classesInCommon(ttu)]);
+            g.fillRect(0, 0, 1000, 1000);
         }
         else if (game.scene.equals("All Users")) {
             rb.printAllUsers();

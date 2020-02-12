@@ -105,6 +105,23 @@ public class User
         return name;
     }//END getName
     
+    public String getSchools() {
+        String retStr = "Schools:\t|";
+        
+        //Need to include schools and friendslist
+        for (int i = 0 ; i < schools.length ; i++) {
+            if (schools[i] != null) {
+                retStr += schools[i];
+                retStr += "|";
+            }
+        }
+        return retStr;
+    }
+    
+    public String getHometown() {
+        return hometown;
+    }
+    
     public boolean equals(Object other) {
         User oth = (User) other;
         return this.name.equals(oth.name) && this.hometown.equals(oth.hometown) && this.age == oth.age;
@@ -251,7 +268,7 @@ public class User
         return this.clubList;
     }
     
-    public int getCommonClasses(Object other) {
+    public int classesInCommon(Object other) {
         User oth = (User) other;
         return this.schedule.classesInCommon(oth.schedule);
     }
