@@ -12,10 +12,12 @@ public class Display extends JComponent{
     String[] fieldNames = {"Name:", "Username:", "Password:", "Age:", "Hometown:", "High School (optional):", "College (optional):", "Graduate School (optional):"};
     String[] classPeriods = {"1AC", "2AC", "3/4/5AC", "6AC", "1BD", "2BD", "3/4/5BD", "6BD", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher"};
     String[] names =  new String[16];
+    String[] pf = new String[2];
     Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
     Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     int usersel = 0;
     int selInd = -1;
+    int loginsel = -1;
     User ttu;
     
     User you;
@@ -70,10 +72,58 @@ public class Display extends JComponent{
                 accountString = "";
             }
             if (button(g, 700, 600, 200, 90, new Color(180, 180, 180), "Log In")) {
-                game.scene = "CreateAccount";
+                game.scene = "Log In";
                 accountString = "";
             }
             //System.out.println(mouse.x + " " + mouse.y);
+        }
+        else if (game.scene.equals("Log In")) {
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(0, 0, 1000, 1000);
+            g.setColor(new Color(0, 0, 0));
+            g.setFont(new Font("Avenir", Font.PLAIN, 95));
+            g.drawString("Log In:", 200, 200);
+            g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
+            if (pf[0] == null) {
+                pf[0] = "";
+            }
+            if (pf[1] == null) {
+                pf[1] = "";
+            }
+            if (button(g, 400, 400, 200, 100, new Color(220, 220, 220), pf[0])) {
+                loginsel = 0;
+            }
+            if (button(g, 400, 550, 200, 100, new Color(220, 220, 220), pf[1])) {
+                loginsel = 1;
+            }
+            if (loginsel != -1) {
+                for (int i = 48 ; i <= 122 ; i++) {
+                    if (kb.pressed[i]) {
+                        if (i >= 65 && i <= 90) {
+                            if (kb.keys[16]) {
+                                pf[loginsel] += (char) (i);
+                            }
+                            else {
+                                pf[loginsel] += (char) (i + 32);
+                            }
+                        }
+                        else if (i >= 48 && i <= 57) {
+                            pf[loginsel] += (char) (i);
+                        }
+                    }
+                }
+            }
+            if (button(g, 400, 850, 200, 100, new Color(220, 220, 220), "Log In")) {
+                you = null;
+                for (int i = 0 ; i < rb.allUsers.size() ; i++) {
+                    if (rb.allUsers.get(i).getUsername().equals(pf[0]) && rb.allUsers.get(i).getPassword().equals(pf[1])) {
+                        you = rb.allUsers.get(i);
+                    }
+                }
+                if (you != null) {
+                    game.scene = "Home";
+                }
+            }
         }
         else if (game.scene.equals("CreateAccount")) {
             
@@ -287,12 +337,12 @@ public class Display extends JComponent{
             g.fillRect(160, 170, 1000, 20);
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 85));
-            g.drawString(ttu.getName(), 250, 70);
+            g.drawString(ttu.getName(), 250, 100);
             g.setFont(new Font("Avenir", Font.PLAIN, 32));
             g.drawString(Integer.toString(cc) + " classes in common", 270, 240);
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("Avenir",Font.PLAIN, 170));
-            g.drawString(Integer.toString(cc), 50, 120);
+            g.drawString(Integer.toString(cc), 50, 240);
         }
         else if (game.scene.equals("All Users")) {
             rb.printAllUsers();

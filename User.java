@@ -124,6 +124,15 @@ public class User
         return hometown;
     }
     
+    public String getUsername() {
+        return username;
+    }
+    
+    
+    public String getPassword() {
+        return password;
+    }
+    
     public boolean equals(Object other) {
         User oth = (User) other;
         return this.name.equals(oth.name) && this.hometown.equals(oth.hometown) && this.age == oth.age;
