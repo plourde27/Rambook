@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.lang.Math.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class Display extends JComponent{
     Game game;
@@ -13,6 +16,7 @@ public class Display extends JComponent{
     String[] classPeriods = {"1AC", "2AC", "3/4/5AC", "6AC", "1BD", "2BD", "3/4/5BD", "6BD", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher", "Teacher"};
     String[] names =  new String[16];
     String[] pf = new String[2];
+    String newPostText = "";
     Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
     Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     int usersel = 0;
@@ -20,6 +24,8 @@ public class Display extends JComponent{
     int loginsel = -1;
     User ttu;
     String pmess = "";
+    
+    BufferedImage image;
     
     User you;
     
@@ -36,6 +42,11 @@ public class Display extends JComponent{
         kb = k;
         rb = new RamBook();
         frm = f;
+        try {
+            image = ImageIO.read(new File("graphic.png"));
+        }
+        catch (Exception e) {
+        }
     }
     
     public void draw(){
@@ -68,7 +79,7 @@ public class Display extends JComponent{
                 txt += " ";
             }
             if (kb.pressed[8] && txt.length() > 0) {
-                txt = pf[loginsel].substring(0, txt.length() - 1);
+                txt = txt.substring(0, txt.length() - 1);
             }
         }
         return txt;
@@ -92,10 +103,14 @@ public class Display extends JComponent{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
+        g.drawImage(image, 0, 0, 1000, 1000, null, null);
+        g.setColor(new Color(255, 255, 255, 200));
+        g.fillRect(0, 0, 1000, 1000);
+        
         if (game.scene.equals("Login")) {
         
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(0, 0, 1000, 1000);
+            
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Welcome to Rambook!", 200, 200);
@@ -143,7 +158,7 @@ public class Display extends JComponent{
         
         else if (game.scene.equals("Log In")) {
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(0, 0, 1000, 1000);
+            
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 95));
             g.drawString("Log In:", 200, 200);
@@ -177,7 +192,7 @@ public class Display extends JComponent{
         else if (game.scene.equals("CreateAccount")) {
             
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(0, 0, 1000, 1000);
+            
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Create your Account:", 200, 200);
@@ -219,7 +234,7 @@ public class Display extends JComponent{
             
             //String[] teachers = {"","","","","","","",""};
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(0, 0, 1000, 1000);
+            
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Enter your Schedule:", 200, 200);
@@ -288,7 +303,7 @@ public class Display extends JComponent{
         }
         else if (game.scene.equals("Home") || game.scene.equals("Friends") || game.scene.equals("All Users") || game.scene.equals("Inbox") || game.scene.equals("Log Out")) {
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(0, 0, 1000, 1000);
+            
             
             String[] buttonops = {"Home", "Friends", "All Users", "Inbox", "Log Out"};
             g.setFont(new Font("Avenir", Font.PLAIN, 22));
@@ -309,6 +324,22 @@ public class Display extends JComponent{
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Welcome, " + you.getName(), 200, 200);
+            g.setFont(new Font("Avenir", Font.PLAIN, 26));
+            newPostText = editBox(g, 200, 400, 600, 100, new Color(220, 220, 220), newPostText, true);
+            g.setFont(new Font("Avenir", Font.PLAIN, 22));
+            if (button(g, 400, 580, 200, 80, new Color(220, 220, 220), "Make Post")) {
+                you.newPost(you, newPostText);
+                newPostText = "";
+            }
+            for (int i = 0 ; i < Math.min(3, you.posts.size()) ; i++) {
+                g.setColor(new Color(210, 210, 210));
+                g.fillRect(200, 680 + i * 80, 600, 70);
+                g.setColor(new Color(0, 0, 0));
+                g.setFont(new Font("Avenir", Font.PLAIN, 22));
+                Post ps = you.posts.get(i);
+                g.setFont(new Font("Avenir", Font.PLAIN, 26));
+                g.drawString(ps.text, 250, 710 + i * 100);
+            }
         }
         else if (game.scene.equals("All Users") || game.scene.equals("Friends")) {
             g.setColor(new Color(0, 0, 0));
@@ -322,7 +353,6 @@ public class Display extends JComponent{
             
             int i = usersel;
             int t = 0;
-            System.out.println(rb.allUsers.size());
             ArrayList<User> tuu = new ArrayList<User>();
             for (int j = 0 ; j < rb.allUsers.size() ; j++) {
                 if (rb.allUsers.get(j).equals(you)) {
@@ -358,7 +388,6 @@ public class Display extends JComponent{
             Color[] classColors = {new Color(0, 0, 0), new Color(255, 0, 0), new Color(200, 50, 0), new Color(180, 180, 0), new Color(100, 200, 0), new Color(0, 255, 0), new Color(0, 125, 255), new Color(0, 55, 255), new Color(0, 200, 200)};
             int cc = you.classesInCommon(ttu);
             g.setColor(classColors[cc]);
-            System.out.println(you.classesInCommon(ttu));
             g.fillOval(50, 120, 120, 120);
             g.fillRect(100, 230, 20, 1000);
             g.fillRect(160, 170, 1000, 20);
@@ -371,7 +400,6 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir",Font.PLAIN, 130));
             g.drawString(Integer.toString(cc), 70, 223);
             g.setFont(new Font("Avenir", Font.PLAIN, 26));
-            System.out.println(you);
             if (!you.isFriend(ttu)) {
                 if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Add as Friend")) {
                     you.addFriend(ttu);
@@ -382,12 +410,38 @@ public class Display extends JComponent{
                     you.unfriend(ttu.getName());
                 }
             }
-            pmess = editBox(g, 650, 480, 200, 80, new Color(210, 210, 210), pmess, true);
+            pmess = editBox(g, 600, 320, 300, 80, new Color(210, 210, 210), pmess, true);
             if (button(g, 650, 480, 200, 80, new Color(210, 210, 210), "Send Message")) {
-                
+                you.sendMessage(ttu.getName(), pmess);
+                System.out.println(ttu.inbox);
             }
             if (button(g, 400, 800, 200, 80, new Color(230, 230, 230), "Back")) {
                 game.scene = "All Users";
+            }
+            for (int i = 0 ; i < Math.min(3, ttu.posts.size()) ; i++) {
+                g.setColor(new Color(210, 210, 210));
+                g.fillRect(170, 530 + i * 80, 500, 70);
+                g.setColor(new Color(0, 0, 0));
+                g.setFont(new Font("Avenir", Font.PLAIN, 22));
+                Post ps = ttu.posts.get(i);
+                g.setFont(new Font("Avenir", Font.PLAIN, 26));
+                g.drawString(ps.text, 200, 560 + i * 80);
+            }
+        }
+        else if (game.scene.equals("Inbox")) {
+            g.setColor(new Color(0, 0, 0));
+            g.setFont(new Font("Avenir", Font.PLAIN, 50));
+            g.drawString("Inbox", 200, 200);
+            for (int i = 0 ; i < Math.min(4, you.inbox.size()) ; i++) {
+                g.setColor(new Color(210, 210, 210));
+                g.fillRect(200, 400 + i * 100, 600, 80);
+                g.setColor(new Color(0, 0, 0));
+                g.setFont(new Font("Avenir", Font.PLAIN, 22));
+                Message ms = you.inbox.get(i);
+                g.drawString("From: " + ms.from.getName(), 250, 420 + i * 100);
+                g.drawString("To: " + ms.to.getName(), 250, 480 + i * 100);
+                g.setFont(new Font("Avenir", Font.PLAIN, 26));
+                g.drawString(ms.message, 450, 430 + i * 100);
             }
         }
         else if (game.scene.equals("Log Out")) {
@@ -412,6 +466,8 @@ public class Display extends JComponent{
             kb.pressed[i] = false;
         }
         mouse.clicked = false;
-        
+        if (you != null) {
+            //System.out.println(you.getInbox());
+        }
     }
 }

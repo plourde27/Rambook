@@ -27,7 +27,7 @@ public class Main
         
         User x = new User("Joe", 18, "South Bend", new String[] {"SBHS", "Harvard"});
         User y = new User("Rick", 15, "North Bend", new String[] {"NBHS", "Yale"});
-        x.newPost(x);
+        x.newPost(x, "hello");
         System.out.println(x.getPosts().get(0));
         //SchoolClub jousting = new SchoolClub("Jousting Club", "Jake", "James");
         //x.addClub(jousting);

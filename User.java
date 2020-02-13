@@ -14,9 +14,9 @@ public class User
     public ArrayList<User> friendsList;
     private String username;
     private String password;
-    private ArrayList<Message> inbox;
+    public ArrayList<Message> inbox;
     private String UserStatus;
-    private ArrayList<Post> posts;
+    public ArrayList<Post> posts;
     //private ArrayList<String> groups;//same as clubs
     private Schedule schedule;
     private ArrayList<SchoolClub> clubList;
@@ -222,14 +222,14 @@ public class User
         p.UserStatus = scn.nextLine();
     }
     
-    public void newPost(User u){
-        System.out.print("Enter the text for your post: ");
-        String posttext = scn.nextLine();
+    public void newPost(User u, String posttext){
+        //System.out.print("Enter the text for your post: ");
+        //String posttext = scn.nextLine();
         //System.out.print("Public or private (please enter one of the options): ");
         //String pvstatus = scn.nextLine();
         String date = this.getDate();
         Post pt = new Post(u, posttext);
-        this.posts.add(pt);
+        this.posts.add(0, pt);
         
     }
     
@@ -237,17 +237,17 @@ public class User
         return this.posts;
     }
     
-    public void sendMessage(User other) {
-        System.out.print("Enter your message: ");
+    public void sendMessage(String other, String txt) {
+        /*System.out.print("Enter your message: ");
         String message = scn.nextLine();
         System.out.println();
         System.out.print("Enter the name of the user you would like to send it to: ");
         String u = scn.nextLine();
-        System.out.println();
+        System.out.println();*/
         User recipient = this;
         boolean found = false;
         for (int i = 0 ; i < friendsList.size() ; i++) {
-            if (friendsList.get(i).name.equals(u)) {
+            if (friendsList.get(i).name.equals(other)) {
                 recipient = friendsList.get(i);
                 found = true;
                 break;
@@ -260,7 +260,7 @@ public class User
         
         
         
-        Message ms = new Message(this, recipient, message);
+        Message ms = new Message(this, recipient, txt);
         ms.sendMessage();
     }
     

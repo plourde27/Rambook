@@ -1,7 +1,7 @@
 public class Message {
-    private User from;
-    private User to;
-    private String message;
+    public User from;
+    public User to;
+    public String message;
     public Message(User f, User t, String m) {
         from = f;
         to = t;
@@ -9,7 +9,7 @@ public class Message {
     }
     
     public void sendMessage() {
-        to.getInbox().add(this);
+        to.inbox.add(0, this);
     }
     
     public String toString() {
