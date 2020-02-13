@@ -19,6 +19,7 @@ public class Display extends JComponent{
     int selInd = -1;
     int loginsel = -1;
     User ttu;
+    String pmess = "";
     
     User you;
     
@@ -39,6 +40,38 @@ public class Display extends JComponent{
     
     public void draw(){
         super.repaint();
+    }
+    
+    public String editBox(Graphics g, int x, int y, int w, int h, Color c, String txt, boolean selected) {
+        g.setColor(c);
+        g.fillRect(x, y, w, h);
+        g.setColor(new Color(0, 0, 0));
+        g.drawString(txt, x + 20, (int) (y + (3 * h / 4.0)));
+        
+        if (selected) {
+            for (int i = 48 ; i <= 122 ; i++) {
+                if (kb.pressed[i]) {
+                    if (i >= 65 && i <= 90) {
+                        if (kb.keys[16]) {
+                            txt += (char) (i);
+                        }
+                        else {
+                            txt += (char) (i + 32);
+                        }
+                    }
+                    else if (i >= 48 && i <= 57) {
+                        txt += (char) (i);
+                    }
+                }
+            }
+            if (kb.pressed[32]) {
+                txt += " ";
+            }
+            if (kb.pressed[8] && txt.length() > 0) {
+                txt = pf[loginsel].substring(0, txt.length() - 1);
+            }
+        }
+        return txt;
     }
     
     public boolean button(Graphics g, int x, int y, int w, int h, Color c, String txt) {
@@ -127,29 +160,8 @@ public class Display extends JComponent{
             if (button(g, 400, 550, 200, 100, new Color(220, 220, 220), pf[1])) {
                 loginsel = 1;
             }
-            if (loginsel != -1) {
-                for (int i = 48 ; i <= 122 ; i++) {
-                    if (kb.pressed[i]) {
-                        if (i >= 65 && i <= 90) {
-                            if (kb.keys[16]) {
-                                pf[loginsel] += (char) (i);
-                            }
-                            else {
-                                pf[loginsel] += (char) (i + 32);
-                            }
-                        }
-                        else if (i >= 48 && i <= 57) {
-                            pf[loginsel] += (char) (i);
-                        }
-                    }
-                }
-                if (kb.pressed[32]) {
-                    pf[loginsel] += " ";
-                }
-                if (kb.pressed[8] && pf[loginsel].length() > 0) {
-                    pf[loginsel] = pf[loginsel].substring(0, pf[loginsel].length() - 1);
-                }
-            }
+            pf[0] = editBox(g, 400, 400, 200, 100, new Color(220, 220, 220), pf[0], loginsel == 0);
+            pf[1] = editBox(g, 400, 550, 200, 100, new Color(220, 220, 220), pf[1], loginsel == 1);
             if (button(g, 400, 850, 200, 100, new Color(220, 220, 220), "Log In")) {
                 you = null;
                 for (int i = 0 ; i < rb.allUsers.size() ; i++) {
@@ -171,37 +183,20 @@ public class Display extends JComponent{
             g.drawString("Create your Account:", 200, 200);
             //System.out.println(kb.pressed[65]);
             if (selInd != -1) {
-                for (int i = 48 ; i <= 122 ; i++) {
-                    if (kb.pressed[i]) {
-                        if (i >= 65 && i <= 90) {
-                            if (kb.keys[16]) {
-                                enterFields[selInd] += (char) (i);
-                            }
-                            else {
-                                enterFields[selInd] += (char) (i + 32);
-                            }
-                        }
-                        else if (i >= 48 && i <= 57) {
-                            enterFields[selInd] += (char) (i);
-                        }
-                    }
-                }
-                if (kb.pressed[32]) {
-                    enterFields[selInd] += " ";
-                }
-                if (kb.pressed[8] && enterFields[selInd].length() > 0) {
-                    enterFields[selInd] = enterFields[selInd].substring(0, enterFields[selInd].length() - 1);
-                }
+                
             }
             
             g.setColor(new Color(240, 240, 240));
             g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
             for (int i = 0 ; i < enterFields.length ; i++) {
-                g.setColor(new Color(0, 0, 0));
-                g.drawString(fieldNames[i], 120, 325 + i * 65);
                 if (enterFields[i] == null) {
                     enterFields[i] = "";
                 }
+                enterFields[i] = editBox(g, 410, 290 + i * 65, 450, 50, new Color(240, 240, 240), enterFields[i], selInd == i);
+                
+                g.setColor(new Color(0, 0, 0));
+                g.drawString(fieldNames[i], 120, 325 + i * 65);
+                
                 
                 if (button(g, 410, 290 + i * 65, 450, 50, new Color(240, 240, 240), enterFields[i])) {
                     
@@ -230,27 +225,7 @@ public class Display extends JComponent{
             g.drawString("Enter your Schedule:", 200, 200);
             //System.out.println(kb.pressed[65]);
             if (selInd != -1) {
-                for (int i = 48 ; i <= 122 ; i++) {
-                    if (kb.pressed[i]) {
-                        if (i >= 65 && i <= 90) {
-                            if (kb.keys[16]) {
-                                names[selInd] += (char) (i);
-                            }
-                            else {
-                                names[selInd] += (char) (i + 32);
-                            }
-                        }
-                        else if (i >= 48 && i <= 57) {
-                            names[selInd] += (char) (i);
-                        }
-                    }
-                }
-                if (kb.pressed[32]) {
-                    names[selInd] += " ";
-                }
-                if (kb.pressed[8] && names[selInd].length() > 0) {
-                    names[selInd] = names[selInd].substring(0, names[selInd].length() - 1);
-                }
+                
             }
             
             g.setColor(new Color(240, 240, 240));
@@ -259,16 +234,19 @@ public class Display extends JComponent{
             g.drawString("Class Name", 280, 270);
             g.drawString("Teacher", 750, 270);
             for (int i = 0 ; i < enterFields.length ; i++) {
-                g.setColor(new Color(240, 240, 240));
-                g.fillRect(160, 290 + i * 65, 300, 50);
-                g.setColor(new Color(0, 0, 0));
-                g.drawString(classPeriods[i], 90, 330 + i * 65);
                 if (names[i] == null) {
                     names[i] = "";
                 }
                 if (names[i + 8] == null) {
                     names[i + 8] = "";
                 }
+                names[i] = editBox(g, 160, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i], selInd == i);
+                names[i + 8] = editBox(g, 630, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i + 8], selInd == i + 8);
+                g.setColor(new Color(240, 240, 240));
+                g.fillRect(160, 290 + i * 65, 300, 50);
+                g.setColor(new Color(0, 0, 0));
+                g.drawString(classPeriods[i], 90, 330 + i * 65);
+                
                 
                 g.setColor(new Color(0, 0, 0));
                 if (button(g, 160, 290 + i * 65, 300, 50, new Color(240, 240, 240), names[i])) {
@@ -332,25 +310,33 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
             g.drawString("Welcome, " + you.getName(), 200, 200);
         }
-        else if (game.scene.equals("All Users")) {
+        else if (game.scene.equals("All Users") || game.scene.equals("Friends")) {
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 65));
-            g.drawString("View Other Users", 200, 200);
+            if (game.scene.equals("All Users") ) {
+                g.drawString("View Other Users", 200, 200);
+            }
+            else {
+                g.drawString("View Friends", 200, 200);
+            }
             
             int i = usersel;
             int t = 0;
             System.out.println(rb.allUsers.size());
-            while (i < rb.allUsers.size() && t < 6) {
-                g.setColor(new Color(230, 230, 230));
-                User tu = rb.allUsers.get(i);
-                if (tu.equals(you)) {
-                    i++;
-                    t++;
-                    if (t >= 6 || i >= rb.allUsers.size()) {
-                        break;
-                    }
-                    t--;
+            ArrayList<User> tuu = new ArrayList<User>();
+            for (int j = 0 ; j < rb.allUsers.size() ; j++) {
+                if (rb.allUsers.get(j).equals(you)) {
+                    continue;
                 }
+                if (game.scene.equals("Friends") && !you.isFriend(rb.allUsers.get(j))) {
+                    continue;
+                }
+                tuu.add(rb.allUsers.get(j));
+            }
+            while (i < tuu.size() && t < 6) {
+                g.setColor(new Color(230, 230, 230));
+                User tu = tuu.get(i);
+                
                 if (button(g, 50, 400 + t * 90, 900, 80, new Color(230, 230, 230), "")) {
                     game.scene = "ViewOtherUser";
                     ttu = tu;
@@ -385,8 +371,20 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir",Font.PLAIN, 130));
             g.drawString(Integer.toString(cc), 70, 223);
             g.setFont(new Font("Avenir", Font.PLAIN, 26));
-            if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Add as Friend")) {
-                you.addFriend(ttu);
+            System.out.println(you);
+            if (!you.isFriend(ttu)) {
+                if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Add as Friend")) {
+                    you.addFriend(ttu);
+                }
+            }
+            else {
+                if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Unfriend")) {
+                    you.unfriend(ttu.getName());
+                }
+            }
+            pmess = editBox(g, 650, 480, 200, 80, new Color(210, 210, 210), pmess, true);
+            if (button(g, 650, 480, 200, 80, new Color(210, 210, 210), "Send Message")) {
+                
             }
             if (button(g, 400, 800, 200, 80, new Color(230, 230, 230), "Back")) {
                 game.scene = "All Users";

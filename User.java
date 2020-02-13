@@ -11,7 +11,7 @@ public class User
     private int age;
     private String hometown;
     private String[] schools;
-    private ArrayList<User> friendsList;
+    public ArrayList<User> friendsList;
     private String username;
     private String password;
     private ArrayList<Message> inbox;
@@ -283,5 +283,15 @@ public class User
     public int classesInCommon(Object other) {
         User oth = (User) other;
         return this.schedule.classesInCommon(oth.schedule);
+    }
+    
+    public boolean isFriend(Object other) {
+        User oth = (User) other;
+        for (int i = 0 ; i < friendsList.size() ; i++) {
+            if (oth.equals(friendsList.get(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }//END CLASS
