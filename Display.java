@@ -77,6 +77,34 @@ public class Display extends JComponent{
             }
             //System.out.println(mouse.x + " " + mouse.y);
         }
+        
+        
+        
+        else if(game.scene.equals("Post")) {
+            System.out.print("Make a post: ");
+            String TextOfPost = scn.nextLine();
+            //need to read for input, the user posting is the one logged in
+        }
+        else if(game.scene.equals("Message")) {
+            System.out.print("Message Recipient: ");
+            User RecipientOfMessage = scn.nextLine();
+            
+            this.sendMessage(RecipientOfMessage); //sendMessage() function has an intrinsic check to verify whether the potential recipient is a friend
+                
+        }
+        else if(game.scene.equals("CreateClub")) {
+            System.out.print("Club Name: ");
+            String ClubName = scn.nextLine();
+            System.out.print("President: ");
+            String ClubPres = scn.nextLine();
+            System.out.print("Advisor: ");
+            String ClubAdvisor = scn.nextLine();
+            
+            SchoolClub NameOfClub = new SchoolClub(ClubName, ClubAdvisor, ClubPres);
+        }
+        else if(game.scene.equals("CreateClub")) {
+            
+        }
         else if (game.scene.equals("Log In")) {
             g.setColor(new Color(255, 255, 255));
             g.fillRect(0, 0, 1000, 1000);
