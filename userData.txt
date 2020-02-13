@@ -17,3 +17,30 @@ Schools: TestHS,TestU
 Classes: POE,Band,Calculus,blah,blah,blah,blah,blah
 Teachers: Stroh,Blumenthal,Techman,test,test,test,test,test
 Friends: 
+Name: Mr. Rambook
+Username: rambookman
+Password: apcsa
+Age: 27
+Hometown: Javaland
+Schools: TestHS,TestU
+Classes: POE,Band,Calculus,AP Rambook Science,blah,blah,blah,blah
+Teachers: Stroh,Blumenthal,Techman,Lang,test,test,test,test
+Friends: 
+Name: Java
+Username: javadude
+Password: codingisfun
+Age: 1101
+Hometown: JFrame City
+Schools: TestHS,TestU
+Classes: POE,Band,Calculus,AP Computer Programming Language Creation,blah,blah,blah,blah
+Teachers: Stroh,Blumenthal,Techman,Lang,test,test,test,test
+Friends: 
+Name: Python
+Username: thesnake
+Password: nonullpointerexceptions
+Age: 1816
+Hometown: Pythonland
+Schools: TestHS,TestU
+Classes: POE,Band,Calculus,Gym,Studio Language Creation,blah,blah,blah
+Teachers: Stroh,Blumenthal,Rowles,Lang,test,test,test,test
+Friends: 
