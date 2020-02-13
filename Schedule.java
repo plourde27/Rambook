@@ -33,6 +33,7 @@ public class Schedule
         Schedule oth = (Schedule) other;
         int common = 0;
         for (int i = 0 ; i < classes.length ; i++) {
+            //System.out.println(this.classes[i].equals(oth.classes[i]) + " " + this.classes[i].name + " " + this.classes[i].teacher + " " + oth.classes[i].name + " " + oth.classes[i].teacher);
             if (this.classes[i].equals(oth.classes[i])) {
                 common += 1;
             }

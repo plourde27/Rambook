@@ -8,7 +8,7 @@ public class User
 {
     //INSTANCE FIELDS
     private String name;
-    private int age;
+    public int age;
     private String hometown;
     private String[] schools;
     public ArrayList<User> friendsList;

@@ -166,6 +166,8 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir", Font.PLAIN, 95));
             g.drawString("Log In:", 200, 200);
             g.setFont(new Font("Helveticaneue", Font.PLAIN, 22));
+            g.drawString("Username: ", 240, 455);
+            g.drawString("Password: ", 240, 605);
             if (pf[0] == null) {
                 pf[0] = "";
             }
@@ -334,6 +336,9 @@ public class Display extends JComponent{
                 you.newPost(you, newPostText);
                 newPostText = "";
             }
+            g.setFont(new Font("Avenir", Font.PLAIN, 22));
+            g.setColor(new Color(0, 0, 0));
+            g.drawString("Recent Posts:", 400, 660);
             for (int i = 0 ; i < Math.min(3, you.posts.size()) ; i++) {
                 g.setColor(new Color(210, 210, 210));
                 g.fillRect(200, 680 + i * 80, 600, 70);
@@ -396,8 +401,11 @@ public class Display extends JComponent{
             g.fillRect(160, 170, 1000, 20);
             g.setColor(new Color(0, 0, 0));
             g.setFont(new Font("Avenir", Font.PLAIN, 85));
-            g.drawString(ttu.getName(), 250, 100);
-            g.setFont(new Font("Avenir", Font.PLAIN, 32));
+            g.drawString(ttu.getName(), 250, 80);
+            g.setFont(new Font("Avenir", Font.PLAIN, 28));
+            g.drawString("Hometown: " + ttu.getHometown(), 250, 120);
+            g.drawString("Schools: " + ttu.getSchools(), 250, 150);
+            g.drawString("Age: " + Integer.toString(ttu.age), 650, 120);
             g.drawString(Integer.toString(cc) + " classes in common", 270, 240);
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("Avenir",Font.PLAIN, 120));
@@ -424,6 +432,9 @@ public class Display extends JComponent{
             if (button(g, 400, 800, 200, 80, new Color(230, 230, 230), "Back")) {
                 game.scene = "All Users";
             }
+            g.setFont(new Font("Avenir", Font.PLAIN, 22));
+            g.setColor(new Color(0, 0, 0));
+            g.drawString("Recent Posts:", 200, 500);
             for (int i = 0 ; i < Math.min(3, ttu.posts.size()) ; i++) {
                 g.setColor(new Color(210, 210, 210));
                 g.fillRect(170, 530 + i * 80, 500, 70);
