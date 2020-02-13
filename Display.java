@@ -78,7 +78,9 @@ public class Display extends JComponent{
             //System.out.println(mouse.x + " " + mouse.y);
         }
         
-        
+        //***below are three guidelines for the graphics
+        //obviously they have errors because this is the Display class
+        //please delete/replace them when finished
         
         else if(game.scene.equals("Post")) {
             System.out.print("Make a post: ");
@@ -102,9 +104,10 @@ public class Display extends JComponent{
             
             SchoolClub NameOfClub = new SchoolClub(ClubName, ClubAdvisor, ClubPres);
         }
-        else if(game.scene.equals("CreateClub")) {
-            
-        }
+
+        
+        
+        
         else if (game.scene.equals("Log In")) {
             g.setColor(new Color(255, 255, 255));
             g.fillRect(0, 0, 1000, 1000);
