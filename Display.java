@@ -82,7 +82,7 @@ public class Display extends JComponent{
         //obviously they have errors because this is the Display class
         //please delete/replace them when finished
         
-        else if(game.scene.equals("Post")) {
+        /*else if(game.scene.equals("Post")) {
             System.out.print("Make a post: ");
             String TextOfPost = scn.nextLine();
             //need to read for input, the user posting is the one logged in
@@ -103,7 +103,7 @@ public class Display extends JComponent{
             String ClubAdvisor = scn.nextLine();
             
             SchoolClub NameOfClub = new SchoolClub(ClubName, ClubAdvisor, ClubPres);
-        }
+        }*/
 
         
         
@@ -142,6 +142,12 @@ public class Display extends JComponent{
                             pf[loginsel] += (char) (i);
                         }
                     }
+                }
+                if (kb.pressed[32]) {
+                    pf[loginsel] += " ";
+                }
+                if (kb.pressed[8] && pf[loginsel].length() > 0) {
+                    pf[loginsel] = pf[loginsel].substring(0, pf[loginsel].length() - 1);
                 }
             }
             if (button(g, 400, 850, 200, 100, new Color(220, 220, 220), "Log In")) {
@@ -333,24 +339,28 @@ public class Display extends JComponent{
             
             int i = usersel;
             int t = 0;
+            System.out.println(rb.allUsers.size());
             while (i < rb.allUsers.size() && t < 6) {
                 g.setColor(new Color(230, 230, 230));
                 User tu = rb.allUsers.get(i);
                 if (tu.equals(you)) {
                     i++;
                     t++;
-                    break;
+                    if (t >= 6 || i >= rb.allUsers.size()) {
+                        break;
+                    }
+                    t--;
                 }
-                if (button(g, 50, 400 + (i - usersel) * 90, 900, 80, new Color(230, 230, 230), "")) {
+                if (button(g, 50, 400 + t * 90, 900, 80, new Color(230, 230, 230), "")) {
                     game.scene = "ViewOtherUser";
                     ttu = tu;
                 }
                 g.setColor(new Color(0, 0, 0));
                 g.setFont(new Font("Avenir", Font.PLAIN, 30));
-                g.drawString(tu.getName(), 200, 435 + (i - usersel) * 90);
+                g.drawString(tu.getName(), 200, 435 + t * 90);
                 g.setFont(new Font("Avenir", Font.PLAIN, 21));
-                g.drawString("Hometown: " + tu.getHometown(), 200, 470 + (i - usersel) * 90);
-                g.drawString("Schools: " + tu.getSchools(), 460, 435 + (i - usersel) * 90);
+                g.drawString("Hometown: " + tu.getHometown(), 200, 470 + t * 90);
+                g.drawString("Schools: " + tu.getSchools(), 460, 435 + t * 90);
                 //g.drawString(", 460, 470 + (i - usersel) * 90);
                 i++;
                 t++;
@@ -372,8 +382,26 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir", Font.PLAIN, 32));
             g.drawString(Integer.toString(cc) + " classes in common", 270, 240);
             g.setColor(new Color(255, 255, 255));
-            g.setFont(new Font("Avenir",Font.PLAIN, 170));
-            g.drawString(Integer.toString(cc), 50, 240);
+            g.setFont(new Font("Avenir",Font.PLAIN, 130));
+            g.drawString(Integer.toString(cc), 70, 223);
+            g.setFont(new Font("Avenir", Font.PLAIN, 26));
+            if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Add as Friend")) {
+                you.addFriend(ttu);
+            }
+            if (button(g, 400, 800, 200, 80, new Color(230, 230, 230), "Back")) {
+                game.scene = "All Users";
+            }
+        }
+        else if (game.scene.equals("Log Out")) {
+            you = null;
+            rb.printAllUsers();
+            game.scene = "Login";
+            for (int i = 0 ; i < enterFields.length ; i++) {
+                enterFields[i] = null;
+            }
+            for (int i = 0 ; i < pf.length ; i++) {
+                pf[i] = null;
+            }
         }
         else if (game.scene.equals("All Users")) {
             rb.printAllUsers();
