@@ -68,7 +68,7 @@ public class RamBook
         */
         
         //Randomly Generate Friends
-        for (int x=0; x < allUsers.size(); x++)
+        /*for (int x=0; x < allUsers.size(); x++)
         {
             int friends = (int)(Math.random()*allUsers.size());
             ArrayList<User> addList = new ArrayList<User>();
@@ -85,7 +85,7 @@ public class RamBook
             
             allUsers.get(x).bulkAddFriends(addList);
             
-        }
+        }*/
         
         
     }//END CONSTRUCTOR

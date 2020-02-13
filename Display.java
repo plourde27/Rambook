@@ -400,8 +400,8 @@ public class Display extends JComponent{
             g.setFont(new Font("Avenir", Font.PLAIN, 32));
             g.drawString(Integer.toString(cc) + " classes in common", 270, 240);
             g.setColor(new Color(255, 255, 255));
-            g.setFont(new Font("Avenir",Font.PLAIN, 130));
-            g.drawString(Integer.toString(cc), 70, 223);
+            g.setFont(new Font("Avenir",Font.PLAIN, 120));
+            g.drawString(Integer.toString(cc), 74, 219);
             g.setFont(new Font("Avenir", Font.PLAIN, 26));
             if (!you.isFriend(ttu)) {
                 if (button(g, 250, 320, 200, 80, new Color(210, 210, 210), "Add as Friend")) {
@@ -417,6 +417,7 @@ public class Display extends JComponent{
                 pmess = editBox(g, 600, 320, 300, 80, new Color(210, 210, 210), pmess, true);
                 if (button(g, 650, 440, 200, 80, new Color(210, 210, 210), "Send Message")) {
                     you.sendMessage(ttu.getName(), pmess);
+                    pmess = "";
                     System.out.println(ttu.inbox);
                 }
             }
@@ -446,7 +447,7 @@ public class Display extends JComponent{
                 g.drawString("From: " + ms.from.getName(), 250, 420 + i * 100);
                 g.drawString("To: " + ms.to.getName(), 250, 470 + i * 100);
                 g.setFont(new Font("Avenir", Font.PLAIN, 26));
-                g.drawString(ms.message, 450, 430 + i * 100);
+                g.drawString(ms.message, 480, 430 + i * 100);
             }
         }
         else if (game.scene.equals("Log Out")) {
