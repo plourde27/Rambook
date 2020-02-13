@@ -42,5 +42,5 @@ Age: 1816
 Hometown: Pythonland
 Schools: TestHS,TestU
 Classes: POE,Band,Calculus,Gym,Studio Language Creation,blah,blah,blah
-Teachers: Stroh,Blumenthal,Rowles,Lang,test,test,test,test
+Teachers: Stroh,Blumenthal,Techman,Rowles,Lang,test,test,test,test
 Friends: 
