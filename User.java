@@ -225,10 +225,10 @@ public class User
     public void newPost(User u){
         System.out.print("Enter the text for your post: ");
         String posttext = scn.nextLine();
-        System.out.print("Public or private (please enter one of the options): ");
-        String pvstatus = scn.nextLine();
-        String dato = this.getDate();
-        Post pt = new Post(u, posttext, pvstatus, dato);
+        //System.out.print("Public or private (please enter one of the options): ");
+        //String pvstatus = scn.nextLine();
+        String date = this.getDate();
+        Post pt = new Post(u, posttext);
         this.posts.add(pt);
         
     }
